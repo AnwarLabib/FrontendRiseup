@@ -1,0 +1,41 @@
+<div *ngIf="myRequests && myRequests.length!==0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="list-group" *ngFor="let myRequest of myRequests">
+          <a style="color:black" class="list-group-item" routerLink="/notifications/{{myRequest._id}}" routerLinkActive="active">
+            <div>
+              <div style="display:inline-block">
+                <h5>{{myRequest.title}}</h5> 
+              </div>
+              <div class="pull-right">
+                <i *ngIf="myRequest.status==='accepted' || myRequest.status ==='confirmed'" class="fa fa-check text-success" ></i>
+                <i *ngIf="myRequest.status==='confirmed'" class="fa fa-check text-success" ></i>
+                <i *ngIf="myRequest.status==='rejected'" class="fa fa-close text-danger" ></i>
+              </div> 
+            </div>
+            <div *ngIf="myRequest.expert._id===this.databaseService.user._id">
+              - {{myRequest.user.name}}
+            </div>
+            <div *ngIf="myRequest.expert._id!==this.databaseService.user._id">
+              - {{myRequest.expert.name}}
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <router-outlet></router-outlet>
+      </div> 
+    </div>
+  </div>
+</div>
+<div *ngIf="myRequests && myRequests.length===0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>You don't have any Office Hours Requests</h1>
+        <h3>You can request from <a routerLink="/officehours">here</a></h3>
+      </div>
+    </div>
+  </div>
+</div>

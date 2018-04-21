@@ -1,0 +1,14 @@
+<star-rating-comp (onClick)="onClickRatingChange($event)" (onHoverRatingChange)="onHoverRatingChange($event)" [labelText]="text" [starType]="'svg'" [rating]="rating" [showHalfStars]="true" [hoverEnabled]="true" [labelVisible]="true" [labelPosition]="'right'" [size]="'medium'" [speed]="'slow'" 
+class="pull-left" style="margin-top:10px;"></star-rating-comp>
+<br><br>
+<p>Please give Feedback about the other user</p>
+<ul>
+    <li>
+        Note that he will not see your review
+    </li>
+</ul>
+
+<div *ngIf="viewTextArea">
+    <textarea [(ngModel)]="desc" rows="4" class="form-control" style="margin-top:10px"  type="text" name="description" placeholder= "Please Leave a comment here" #description></textarea>
+    <button (click)="sendReview()" style="margin-top:10px;" class="btn btn-success">Send Feedback</button>
+</div>

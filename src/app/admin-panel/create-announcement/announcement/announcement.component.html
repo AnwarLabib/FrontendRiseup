@@ -1,0 +1,16 @@
+<!-- <div class = "container">
+  {{announcement.title}}
+  {{announcement.description}}
+
+  <button class ="form-control btn btn-warning" (click) = "onDelete(announcement._id)">Delete</button>
+  <br/>
+</div> -->
+
+<div class="row" style="margin-bottom:10px;">
+  <div class="col-lg-8">
+    <strong>{{announcement.title}}</strong>
+  </div>
+  <div class="col-lg-2">
+      <button class ="btn btn-danger" (click) = "onDelete(announcement._id,announcement.title,announcement.description )">Delete</button>
+  </div>
+</div>

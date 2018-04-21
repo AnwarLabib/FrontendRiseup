@@ -1,0 +1,67 @@
+<!--
+
+FILENAME: view-requests.component.html
+
+DESCRIPTION: This is the HTML file for the view-requests component,
+             it includes methods for viewing, accepting and rejecting 
+             expert requests (which is an action that can only be done 
+             by an admin)
+
+AUTHORS:   Amr Saadi & Mariz Samir.         START DATE: 3 Apr 2018.
+
+-->
+
+
+<div class="card card-default">
+  <div class="card-header">
+    <div class="card-title">
+      <h3>Expert Requests</h3>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Looping on the "requests" array in "ViewRequestsComponent" using *ngFor. -->
+    <div *ngFor ="let Request of requests">
+
+
+      <!-- Displaying the name of the user who made the request, and setting its routerLink to their profile
+      so that the admin is redirected there whenever they click it. -->
+      <a style="font-size:25px" routerLink="/profile/{{Request.user._id}}">{{Request.user.name}} </a>
+
+
+      <!-- Displaying the "Description" and "Request status" of the user who made the request. -->
+      <h6>Description: {{Request.description}}</h6>
+      <h6>{{Request.status}}</h6>
+      
+      
+      <!-- Displaying the Accept and Reject buttons only if the status of the current request in the requests array
+        is "unreviewed", the Accept and Reject buttons call the methods onAccept(Request) and onReject(Request) 
+        from "ViewRequestsComponent" respectively.  -->
+        <div align="right" *ngIf="Request.status=='Pending'">
+        <input type="submit" class="btn btn-warning" value="Accept"  (click) = "onAccept(Request)" >
+        <input type="submit" class="btn btn-danger" value="Reject" (click) = "onReject(Request)" >
+      </div>
+
+      <hr>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- code from our previous mini project for reference, it will be removed upon completion of this segment...
+  
+  <div *ngFor="let product of itemsArray">
+    
+  <h3>{{product.name}}</h3>
+  <h6>product ID: {{product._id}}</h6>
+  <h6>Price: {{product.price}}</h6>
+  <h6>Date Created:{{product.createdAt | date:'d'}}/{{product.createdAt | date:'MM'}}/{{product.createdAt | date:'y'}}</h6>
+  <h6>Updated on:{{product.updatedAt | date:'d'}}/{{product.updatedAt | date:'MM'}}/{{product.updatedAt | date:'y'}}</h6>
+  <h6>By: {{product.sellerName}}</h6>
+  <button (click)= "editProduct(product)">edit</button><button (click)= "deleteProduct(product)">remove</button> 
+  
+  <hr>
+
+</div>-->

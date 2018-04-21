@@ -1,0 +1,11 @@
+<carousel [interval]=4000>
+  <slide *ngFor=" let Announcement of myannouncement">
+    <div class="text-center py-5 bg-dark text-white yellowBack">
+      <h2><strong>{{Announcement.title}}</strong></h2>
+      <div class="lead">
+        <p><strong>{{Announcement.description}}</strong></p>
+      </div>
+    </div>
+  </slide>
+
+</carousel>

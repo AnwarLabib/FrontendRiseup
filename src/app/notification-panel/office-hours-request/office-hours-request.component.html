@@ -1,0 +1,86 @@
+<div *ngIf="request" class="chat-discussion">
+    <div class="chat-message" [ngClass]="{'right':!isExpert,'left':isExpert}">
+        <img class="message-avatar" src="assets/images/rony.jpg" alt="">
+        <div class="message">
+            <a class="message-author" routerLink='/profile/{{request.user._id}}'> {{request.user.name}} </a>
+            <span class="message-date"> {{request.createdOn | date : 'd/M/yy h:mm a' : timezone}} </span>
+            <span class="message-content">
+                <app-request-description [request]="request"></app-request-description>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="isExpert&&request &&request.status==='pending'" class="chat-message left">
+        <img class="message-avatar" src="assets/images/RiseUpConnect.png" alt="">
+        <div class="message">
+            <a class="message-author"> RiseUpConnect </a>
+            <span class="message-content">
+                <app-expert-suggest *ngIf="request" [request]="request"></app-expert-suggest>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="request &&request.status==='rejected'" class="chat-message left">
+        <img class="message-avatar" src="assets/images/RiseUpConnect.png" alt="">
+        <div class="message">
+            <a class="message-author"> RiseUpConnect </a>
+            <span class="message-content">
+                <app-expert-reject *ngIf="request" [isExpert]='isExpert' [request]="request"></app-expert-reject>
+            </span>
+        </div>
+    </div>    
+
+    <div *ngIf="request && (request.status==='accepted' || request.status==='confirmed')" class="chat-message" [ngClass]="{'right':isExpert,'left':!isExpert}">
+        <img class="message-avatar" src="assets/images/adam.jpg" alt="">
+        <div class="message">
+            <a class="message-author" routerLink='/profile/{{request.expert._id}}'> {{request.expert.name}} </a>    
+            <span class="message-date"> {{request.suggestedSlots.createdOn | date : 'd/M/yy h:mm a' : timezone}} </span>
+            <span class="message-content">
+                <app-expert-suggestion-view *ngIf="request" [request]="request"></app-expert-suggestion-view>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="!isExpert&&request && request.status==='accepted'" class="chat-message left">
+        <img class="message-avatar" src="assets/images/RiseUpConnect.png" alt="">
+        <div class="message">
+            <a class="message-author"> RiseUpConnect </a>
+            <span class="message-content">
+                <app-user-choose *ngIf="request" [request]="request"></app-user-choose>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="request && request.status==='confirmed'" class="chat-message" [ngClass]="{'right':!isExpert,'left':isExpert}">
+        <img class="message-avatar" src="assets/images/rony.jpg" alt="">
+        <div class="message">
+            <a class="message-author" routerLink='/profile/{{request.user._id}}'> {{request.user.name}} </a>    
+            <span class="message-date"> {{request.chosenSlot.createdOn | date : 'd/M/yy h:mm a' : timezone  }} </span>
+            <span class="message-content">
+                <app-user-choice-view *ngIf="request" [request]="request"></app-user-choice-view>
+            </span>
+        </div>
+    </div>    
+
+    <div *ngIf="request && request.status==='confirmed'" class="chat-message left">
+        <img class="message-avatar" src="assets/images/RiseUpConnect.png" alt="">
+        <div class="message">
+            <a class="message-author"> RiseUpConnect </a>
+            <span class="message-content">
+                <app-request-confirmation *ngIf="request" [request]="request"></app-request-confirmation>
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="request && request.status==='confirmed' && reviewDate() && isReviewed()" class="chat-message left">
+        <img class="message-avatar" src="assets/images/RiseUpConnect.png" alt="">
+        <div class="message">
+            <a class="message-author"> RiseUpConnect </a>
+            <span class="message-content">
+                <app-give-feedback *ngIf="request" [request]="request"></app-give-feedback>
+            </span>
+        </div>
+    </div>
+
+
+</div>

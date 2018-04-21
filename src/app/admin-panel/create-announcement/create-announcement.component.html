@@ -1,0 +1,37 @@
+<div class="card card-default">
+  <div class="card-header">
+    <div class="card-title">
+      <h3>Create an Announcemnt</h3>
+    </div>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="createAnnouncement" (ngSubmit)="onSubmit(title,description)">
+      <label>Announcement Title</label>
+      <input type="text" class="form-control marginBottom10" formControlName="title" #title>
+      <label>Announcement Details</label>
+      <textarea type="text" class="form-control marginBottom10" formControlName="description" #description></textarea>
+      <input style="background-color: #FFE200!important;" type="submit"  class="btn btn-warning marginBottom10" value="Create Announcement" [disabled]="!createAnnouncement.valid" />
+    </form>
+    <hr>
+      <form role="form">
+        <app-announcement *ngFor= "let ann of myAnnouncements" [announcement]="ann"></app-announcement>
+      </form>
+  </div>
+</div>
+
+<!-- <div class="container">
+    <label>Announcement Title</label>
+    <input type="text" class="form-control" #title>
+    <br/>
+    <label>Announcement Details</label>
+    <textarea type="text" class="form-control" #description></textarea>
+    <br/>
+    <button  class="btn btn-success" (click)="onSubmit(title, description)" >Submit</button>
+    <br/>
+    <br/>
+</div>
+<div class="container">
+  <form class="form-inline" role="form">
+    <app-announcement *ngFor= "let ann of myAnnouncements" [announcement]="ann"></app-announcement>
+  </form>
+</div> -->

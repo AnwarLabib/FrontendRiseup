@@ -1,0 +1,457 @@
+<div *ngIf="isLoaded" class="container-fluid">
+  <div>
+    <div class="row" style="background-color:#f2f2f2">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="wrap">
+            <div *ngIf="reqSuccess" class="alert alert-success full-width">
+                {{ reqResponseMsg }}
+            </div> 
+            <div *ngIf="reqFailed" class="alert alert-danger full-width">
+                {{ reqResponseMsg }}
+            </div>    
+          </div>
+          <div class="col-md-8 offset-1" style="margin-top:40px;">
+            <div class="card card-default" style="box-shadow:0 1px 6px rgba(57,73,76,.35)">
+              <div class="card-header">
+                <div class="card-title">
+                  <div class="row" style="margin-top:10px;">
+                    <div class="col-md-2">
+                      <h1 class="img-responsive" style="text-align:center;font:900;width:100%;height:auto"><i class="fa fa-user-circle fa-2x"></i></h1>
+                    </div>
+                    <div class="col-md-10">
+                      <h3>
+                        <strong class="h1">{{displayedProfile.profile.fullName}}</strong>
+                        <button *ngIf="!notMe" (click)="open(content8)" style="float:right;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)" class="btn"><i class="fa fa-edit"></i> Edit</button>
+                      </h3>
+                      <star-rating-comp [starType]="'svg'" [rating]="displayedProfile.profile.rating.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
+                        style="margin-left:-10px" class="pull-left" ></star-rating-comp> ({{displayedProfile.profile.rating.count}})
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row" style="margin-top:20px;">
+                  <div class="col-md-12">
+                    <div style="float:left;">
+                      <h3 *ngIf="!displayedProfile.roles[1]">{{displayedProfile.roles[0]}}</h3>
+                      <h3 *ngIf="displayedProfile.roles[1]">{{displayedProfile.roles[1]}}</h3>
+                    </div>
+                    <button  *ngIf="!notMe" (click)="open(content2)" style="float:right;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)" class="btn"><i class="fa fa-edit"></i> Edit</button>
+                    <br>
+                    <br>
+                    <p>{{displayedProfile.profile.description}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-default" style="box-shadow:0 1px 6px rgba(57,73,76,.35); margin-top:40px;">
+              <div class="card-header">
+                <div class="card-title">
+
+                  <div class="row" style="margin-top:10px;">
+                    <div class="col-md-12">
+                      <h3 style="float:left">Interests</h3>
+                      <button *ngIf="!notMe" (click)="open(content10)" style="float:right;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)" class="btn"><i class="fa fa-edit"></i> Edit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row" style="margin-top:20px;">
+                  <div class="col-md-10">
+                    <div *ngFor="let tag of displayedProfile.profile.interests">
+                      <p class="lead" style="background-color:#e0e0e0;float:left;margin-right:5px;font-size:17px;padding:5px;border-radius:20%">
+                        {{tag}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>    
+      
+            <div *ngIf="displayedProfile.roles.includes('expert')" class="card card-default" style="box-shadow:0 1px 6px rgba(57,73,76,.35); margin-top:40px;">
+              <div class="card-header">
+                <div class="card-title">
+
+                  <div class="row" style="margin-top:10px;">
+                    <div class="col-md-12">
+                      <h3 style="float:left">Expert In</h3>
+                      <button *ngIf="!notMe" (click)="open(content11)" style="float:right;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)" class="btn"><i class="fa fa-edit"></i> Edit</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row" style="margin-top:20px;">
+                  <div class="col-md-10">
+                    <div *ngFor="let tag of displayedProfile.profile.expertIn">
+                      <p class="lead" style="background-color:#e0e0e0;float:left;margin-right:5px;font-size:17px;padding:5px;border-radius:20%">
+                        {{tag}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-default" style="box-shadow:0 1px 6px rgba(57,73,76,.35); margin-top:40px;margin-bottom:40px">
+              <div class="card-header">
+                <div class="card-title">
+
+                  <div class="row" style="margin-top:10px;">
+                    <div class="col-md-12">
+                      <h3 style="float:left">Achievements</h3>
+                      <button *ngIf="!notMe" (click)="open(content5)" style="float:right;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)" class="btn"><i class="fa fa-edit"></i> Edit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row" style="margin-top:20px;">
+                  <div class="col-md-10">
+                    <p class="lead">
+                      {{displayedProfile.profile.achievements}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="database.user && database.user.roles.includes('admin')" class="card card-default" style="box-shadow:0 1px 6px rgba(57,73,76,.35); margin-top:40px;margin-bottom:40px">
+              <div class="card-header">
+                <div class="card-title">
+
+                  <div class="row" style="margin-top:10px;">
+                    <div class="col-md-12">
+                      <h3 style="float:left">Reviews</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="" style="margin-top:20px;" *ngFor="let review of revs;let i = index">
+                      <div>
+                        <a class="pull-left" style="color:red" routerLink="/profile/{{review.reviewer._id}}">{{review.reviewer.name}}</a>
+                        <star-rating-comp [starType]="'svg'" [rating]="review.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
+                                          style="margin-left:10px" class="pull-left" ></star-rating-comp>
+                      </div>
+                      <br>
+                      <div class="row" style="margin-top:20px;">
+                        <div class="col-md-12">
+                          <p *ngIf="review.description">
+                            {{review.description}}
+                          </p>
+                          <p *ngIf="!review.description">
+                            No description given.
+                          </p>
+                        </div>
+                      </div>
+                      <div *ngIf="i!==revs.length-1">
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-3" style="margin-top:40px">
+            <div style="text-align:center">
+              <button *ngIf="!notMe" (click)="open(content7)" class="btn btn-default btn-block" style="border-radius:2px;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)">Profile Settings</button>
+
+              <button *ngIf="!displayedProfile.roles.includes('expert')&&!notMe" (click)="open(content50)" class="btn btn-success btn-block" style="border-radius:2px;box-shadow:0 1px 6px rgba(57,73,76,.35);margin-top:20px">Request to be an Expert</button>
+
+              <button *ngIf="database.user.roles.includes('admin') && displayedProfile.roles.includes('expert')" (click)="open(contentsus)" class="btn btn-danger btn-block" style="border-radius:2px;box-shadow:0 1px 6px rgba(57,73,76,.35);margin-top:20px"> Suspend </button>
+
+              <button *ngIf="displayedProfile.roles.includes('expert')&& notMe && !database.user.roles.includes('admin')" (click)="open(content60)" class="btn btn-success btn-block" style="border-radius:2px;box-shadow:0 1px 6px rgba(57,73,76,.35);margin-top:20px">Book Office Hours</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #contentsus let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h3 class="modal-title">Suspend {{displayedProfile.profile.fullName}} </h3>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 class="modal-body">Are you sure ?</h4>
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"  (click)="suspend();c('Close click')"
+        >Yes</button>
+
+        <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">No</button>
+
+      </div>
+    </ng-template>
+
+    <ng-template #content2 let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Overview</h4>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          Use this space to show clients you have the skills and experience they're looking for.
+        </div>
+        <ul>
+          <li>Describe your strengths and skills</li>
+          <li>A very brief description of projects, accomplishments and education</li>
+          <li>Keep it short and make sure it's error-free</li>
+        </ul>
+        <textarea rows="7" class="form-control" style="margin-bottom:10px"  type="text" name="About" placeholder= "" #description>{{displayedProfile.profile.description}}</textarea>
+
+      </div>
+      <div class="modal-footer">
+        <div style="float:left">
+          <button type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"(click)="editdescription(description);c('Close click')">Submit</button>
+          <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #content5 let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Achievements</h4>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          Use this space to tell other users your achievements such as your education and your work history
+        </div>
+        <ul>
+          <li>Describe your education</li>
+          <li>Highlight in details projects, accomplishments and education</li>
+          <li>Keep it short and make sure it's error-free</li>
+        </ul>
+        <textarea rows="7" class="form-control" style="margin-bottom:10px"  type="text" name="About" placeholder= ""#achieve>{{displayedProfile.profile.achievements}}</textarea>
+
+      </div>
+      <div class="modal-footer">
+        <div style="float:left">
+          <button type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"(click)="editAchievement(achieve);c('Close click')">Submit</button>
+          <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #content7 let-c="close" let-d="dismiss">
+      <form (ngSubmit)="onSubmit(f,content7);d('Cross click')" #f="ngForm">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Password</h4>
+          <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <label style="font-weight:900">Old Password</label>
+          <input class="form-control" type="password" name=opass placeholder= "Old Password" #opass ngModel required>
+          <br>
+          <label style="font-weight:900">New Password</label>
+          <input class="form-control" type="password" name=pass placeholder= "New Password" #pass ngModel required>
+          <br>
+          <label style="font-weight:900">Confirm Password</label>
+          <input class="form-control" type="password" name=cpass placeholder= "Confirm New Password" #cpass ngModel required>
+          <div *ngIf="incorrectPassword" style="color:red">
+            <br>
+            Old Password is not correct
+          </div>
+          <div *ngIf="f.value.pass&&f.value.pass.length > 0 && f.value.pass.length<6" style="color:red">
+            <br>
+            Enter atleast 6 characters
+          </div>
+          <div *ngIf="f.value.pass!=f.value.cpass" style="color:red">
+            <br>
+            Password does not match
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="submit" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"
+                  [disabled]="!(f.valid && f.value.pass===f.value.cpass &&f.value.pass && f.value.pass.length >= 6 )">Submit</button>
+          <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+
+        </div>
+      </form>
+    </ng-template>
+
+    <ng-template #content10 let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Interests</h4>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Add your interests here so that we can get you your suggested experts
+        </p>
+        <ul>
+          <li>
+            You must choose your interests from the predefined tags
+          </li>
+        </ul>
+        <ng-select class="" [multiple]="true" (selected)="selected($event)" (removed)="removed($event)" [items]="allTags" [active]="initialTags" placeholder="Tags"></ng-select>
+
+        <!-- <input class="form-control" type="password" name=editPW placeholder= "Old Password" #opass> -->
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"  (click)="editInterests();c('Close click')"
+        >Submit</button>
+
+        <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="cancelInterests();c('Close click')">Cancel</button>
+
+      </div>
+    </ng-template>
+
+
+    <ng-template #content11 let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Expert In</h4>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Add your field of expertise so that the users know your strengths/
+        </p>
+        <ul>
+          <li>
+            You must choose your skills from the predefined tags
+          </li>
+        </ul>
+        <ng-select class="" [multiple]="true" (selected)="selected($event)" (removed)="removed($event)" [items]="allTags" [active]="initialSkills" placeholder="Tags"></ng-select>
+
+        <!-- <input class="form-control" type="password" name=editPW placeholder= "Old Password" #opass> -->
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"  (click)="editSkills();c('Close click')"
+        >Submit</button>
+
+        <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="cancelSkills();c('Close click')">Cancel</button>
+
+      </div>
+    </ng-template>
+
+
+    <ng-template #content8 let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Full Name</h4>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label style="font-weight:900">Full Name</label>
+        <input value="{{displayedProfile.profile.fullName}}" class="form-control" placeholder= "Full Name"#name>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="editName(name,content8);c('Close click')">Submit</button>
+        <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+
+      </div>
+    </ng-template>
+
+    <ng-template #content51 let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Reviews</h4>
+        <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card" *ngFor="let review of revs">
+          <div class="card-header">
+            <a routerLink="/profile/{{reviewer.review._id}}">
+              {{review.reviewer.fullName}}
+            </a> 
+          </div>
+          <div class="row text-center" style="margin-top:20px;">
+            <div class="col-md-12">
+              <p >
+                {{review.description}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div style="float:left">
+          <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+        </div>
+      </div>
+    </ng-template>
+
+
+    <ng-template #content50 let-c="close" let-d="dismiss">
+      <form #e="ngForm">
+        <div class="modal-header">
+          <h4 class="modal-title">Expert Request Description</h4>
+          <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            Explain breifly what you specialize in and the service you can provide.
+          </div>
+
+          <textarea placeholder="Description" rows="7" class="form-control" style="margin-top:10px;margin-bottom:10px"  type="text" name="ExpertDescription" #ExpertDescription ngModel required></textarea>
+
+        </div>
+        <div class="modal-footer">
+          <div style="float:left">
+            <button type="button" class="btn btn-success" [disabled]="e.value.ExpertDescription===''" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"(click)="ExpertReq(ExpertDescription);c('Close click')">Submit</button>
+            <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+
+    <ng-template #content60 let-c="close" let-d="dismiss">
+      <form #r="ngForm">
+        <div class="modal-header">
+          <h4 class="modal-title">Booking Office Hours </h4>
+          <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <p class="lead">Type your title and description</p>
+          </div>
+          <input style="margin-top:10px"  class="form-control" placeholder= "Title" name="OHTitle" #OHTitle ngModel required>
+          <textarea style="margin-top:10px;margin-bottom:10px" rows="7" class="form-control"  placeholder= "Description" name="OHDes" #OHDes ngModel required>
+                      </textarea>
+        </div>
+        <div class="modal-footer">
+          <div style="float:left">
+            <button type="button" class="btn btn-success" [disabled]="r.value.OHTitle ==='' || r.value.OHDes === ''" style="box-shadow:0 1px 6px rgba(57,73,76,.35)"(click)="BookOfficeHours(OHTitle,OHDes);c('Close click')">Submit</button>
+            <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="c('Close click')">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+</div>
+

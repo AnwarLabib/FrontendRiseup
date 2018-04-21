@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="sel">Choose from the Suggested slots:</label>
+      <select id="sel" class="form-control" [(ngModel)]="selectedSlot">
+        <option value="" disabled selected>Select your slot</option>
+
+        <option *ngFor="let slot of request.suggestedSlots.slots" [ngValue]="slot"> 
+          {{slot | date : 'MMM d, y h:mm:ss a' : '+0000'}} 
+        </option>
+      </select>
+      <p *ngIf='isWrongDate' style="color:red;margin-top:10px">You can't choose an old date</p>
+      <p *ngIf='!isPicked' style="color:red;margin-top:10px">You must choose a slot</p>
+      <button class="btn btn-success" style="margin-top:10px" (click)="chooseSlot()">Choose</button>
+    </div>
+  </div>
+</div>

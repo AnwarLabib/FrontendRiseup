@@ -1,0 +1,56 @@
+<div style="width:400px; margin:0 auto; padding-top:2%">
+    <h2 style="color:red;text-align:center"><strong>CREATE AN ACCOUNT</strong></h2>
+    <hr style="color:yellow;border:none;height:1px;background-color:yellow;margin-top:20px;margin-bottom:10px">
+
+    <div style="width:400px; padding-top:5%; margin:0 auto;">
+
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+            <input class="form-control" type="text" name="name" ngModel [(ngModel)]="nameModel" name="name" placeholder="Full Name" (ngModelChange)="checkName($event)" required>
+            <br>
+            <input class="form-control" placeholder="Email Address" type="email" name="email" ngModel name="email" (ngModelChange)="checkEmail($event)" required email>
+
+            <br>
+
+            <input class="form-control" placeholder="Password" type="password" name="password" [(ngModel)]="passwordModel" ngModel name="pass" (ngModelChange)="checkPassword($event)" required>
+
+            <br>
+
+            <input class="form-control" placeholder="Confirm Password" type="password" name="cpassword" ngModel name="cpass" (ngModelChange)="checkCPassword($event)" required>
+
+            <br>
+
+            <div *ngIf="!(nameModel.length>1) && startedTypingName === true">
+                <span *ngIf="!(nameModel.length>1) && startedTypingName === true" style="color:red;">Name length must be 6 or more</span>
+            </div>
+
+            <div *ngIf="f.value.pass!=f.value.cpass && startedTypingCPassword === true">
+                <span *ngIf="f.value.pass!=f.value.cpass" style="color:red;">Passwords does not match</span>
+            </div>
+
+            <div *ngIf="!(passwordModel.length >= 6) && startedTypingPassword === true">
+                <span *ngIf="!(passwordModel.length >= 6)" style="color:red;">Password length must be 6 or more</span>
+            </div>
+
+            <div *ngIf="failed">
+                <span *ngIf="failed" style="color:red;">Email is already used</span>
+            </div>
+            <div *ngIf="failedBadEmail">
+                <span *ngIf="failedBadEmail" style="color:red;">Invalid email format</span>
+            </div>
+
+            <br>
+
+            <input [disabled]="!(f.valid && f.value.pass===f.value.cpass
+            && nameModel.length > 1 && passwordModel.length >= 6)"
+            style="float:center;" type="submit" style="color:#fff; width: 400px" value="REGISTER"  class="margin20 btn btn-warning" >
+
+            <br>
+
+
+
+        </form>
+
+    </div>
+
+</div>

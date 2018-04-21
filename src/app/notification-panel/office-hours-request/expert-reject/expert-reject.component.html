@@ -1,0 +1,7 @@
+<p *ngIf="isExpert">
+  You rejected the request.
+</p>
+
+<p *ngIf="!isExpert">
+  {{request.expert.name}} rejected your request.
+</p>

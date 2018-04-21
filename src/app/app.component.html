@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/home">RiseUp Connect</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      <li *ngIf="user && user.roles.includes('admin')" class="nav-item">
+        <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Panel</a>
+      </li>
+      <li *ngIf="user && (user.roles.includes('user') || user.roles.includes('expert'))" class="nav-item">
+        <a class="nav-link" routerLink="/profile" routerLinkActive="active">Profile</a>
+      </li>
+      <li *ngIf="user && (user.roles.includes('user') || user.roles.includes('expert'))" class="nav-item">
+        <a class="nav-link" routerLink="/officehours" routerLinkActive="active">Office Hours</a>
+      </li>
+    </ul>
+    
+    <ul *ngIf="user && (user.roles.includes('user') || user.roles.includes('expert'))" class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/notifications" routerLinkActive="active"><i class="fa fa-bell fa-2x"></i>
+          <!-- <span class="badge" style="color:red;font-size:16px">10</span> -->
+        </a>
+      </li>
+    </ul>
+    <button *ngIf="!user&&this.router.url!=='/login'" class="btn btn-outline-danger my-2 my-sm-0" type="submit" routerLink="/login" >Login</button>
+    <button *ngIf="!user&&this.router.url==='/login'" class="btn btn-outline-danger my-2 my-sm-0" type="submit" routerLink="/register" >Register</button>
+    <form *ngIf="user" class="form-inline my-2 my-lg-0" style="margin-right:5px">
+      <!-- <input class="form-control mr-sm-2" [(ngModel)]='searchText' (keyup)="onSearch()"  type="text" name = "searchInput" placeholder="Search" aria-label="Search"><br> -->
+      <ng-select #chosenUser
+              [multiple]="true"
+              [allowClear]="true"
+              [items]="searchUsers"
+              [disabled]="disabled"
+              [multiple]="false"
+              (selected)="selected($event)"
+              (typed)="onSearch($event)"
+              placeholder="Search for a user...">
+            </ng-select>
+      <!-- <div class = "row">
+        <ul class="dropdown-menu" [ngClass]="{show : searchText.length !== 0 }">
+          <li><a class="dropdown-item" *ngFor = "let user of searchUsers "  [href]="'http://localhost:4200/profile/'+user._id">{{user.profile.fullName}}</a></li>
+        </ul>
+      </div> -->
+      <!-- <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button> -->
+    </form>
+    <button *ngIf="user" (click)="logout()" class="btn btn-outline-danger my-2 my-sm-0" type="submit" routerLink="/" >Logout</button>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

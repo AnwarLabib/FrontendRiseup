@@ -1,0 +1,44 @@
+<div style="width:400px; margin:0 auto; padding-top:2%">
+    <h2 style="color:red"><strong>Login to RiseUp Connect</strong></h2>
+    <hr style="color:yellow;border:none;height:1px;background-color:yellow;margin-top:20px;margin-bottom:10px">
+
+  <div style="width:400px; padding-top:5%; margin:0 auto;">
+
+   <form (ngSubmit)="OnSubmit(Email.value,Password.value)" #l="ngForm">
+
+      <div class="margin20">
+      <!-- <label style="font-weight:900;color:red"><strong>Email</strong></label> -->
+      <input type="text" class="form-control" placeholder="Email Address" name="email"
+      pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #Email="ngModel" email ngModel required>
+      </div>
+      <br>
+      <div class="margin20">
+      <!-- <label style="font-weight:900;color:red"><strong>Password</strong></label> -->
+      <input type="password" class="form-control" placeholder="Password" ngModel name="password" #Password="ngModel" required>
+      </div>
+
+      <div class="req" *ngIf="loginFailed"  style="color:red">
+        <br>
+        {{errorMessage}}
+      </div>
+
+        <div [hidden]="!Email.hasError('pattern')">
+          <span style="color:red">Invalid Email Format</span>
+        </div>
+      <br>
+
+      <input [disabled]="l.invalid" style="float:center;" type="submit" style="color:#fff; width: 400px" value="LOGIN"  class="margin20 btn btn-warning" >
+
+      <br>
+
+    </form>
+
+    <hr style="color:yellow;border:none;height:1px;background-color:yellow;margin-top:30px;margin-bottom:30px">
+
+    <a style="color:red"><strong>Don't have an account yet?</strong></a><br>
+    <button routerLink="/register" style="margin-top:20px;color:#fff" class="btn btn-warning">SIGN UP HERE <i class="fa fa-angle-double-right"></i></button>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div *ngIf="!hasInterests">
+    <div class="row" style="margin-top:20px">
+      <div class="col-md-6 offset-3">
+        <div class="alert alert-warning" role="alert">
+          There don't seem to be any interests in your profile! Adding interests
+          will help us match you with the experts you need! Add your interests
+          <a routerLink="../profile">here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:20px" >
+    <div class="offset-1 col-md-10">
+      <ng-select [multiple]="true" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" [items]="searchTags" placeholder="Tags"></ng-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-1 col-md-10">
+        <button *ngIf="chosenTags.length>0" style="margin-top:20px" class="btn btn-danger btn-block" type="submit" (click)="searchForExpertsByTags()">Search</button>
+        <button *ngIf="chosenTags.length==0" style="margin-top:20px" class="btn btn-danger btn-block" type="submit" (click)="searchForExpertsByTags()">Search By Interests</button>
+      </div>
+  </div>
+
+  <hr style="margin-top:30px">
+  <div class="row">
+    <div class="offset-1 col-md-11">
+      <div *ngIf="chosenExperts&&chosenExperts.length == 0 && hasSearched">
+        <h3>Unfortunately, no experts match the tags you selected.</h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-1 col-md-6">
+    <div *ngIf="chosenExperts&&chosenExperts.length > 0; noResultsFound">
+      <div *ngFor="let experts of chosenExperts">
+        <div class="card card-default"  style="margin-top:20px;box-shadow:0 1px 6px rgba(57,73,76,.35)">
+          <div class="card-header">
+          <div class="row">
+            <div class="col-md-11">
+              <h1 class="pull-left img-responsive" style="font:900;margin-top:5px">
+                <i class="fa fa-user-circle fa-1x"></i>
+              </h1>
+
+              <h1 class="pull-left" style="margin-left:10px"><strong class="h3"><a style="color:black" routerLink="/profile/{{experts._id}}">{{experts.profile.fullName}}</a></strong></h1>
+              <div>
+                <star-rating-comp [starType]="'svg'" [rating]="experts.profile.rating.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
+                style="margin-left:10px;margin-top:17px" class="pull-left" ></star-rating-comp>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <button class="btn pull-right" *ngIf="chosen.length<3" (click)="chooseExpert(experts)" style="margin-top:7px;font-size:15px;color:rgb(255, 255, 255);background-color:rgb(0, 172, 0);">
+                <i class="fa fa-check" style="font-size:30px"></i>
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-5">
+      <div *ngFor="let choice of chosen" >
+        <div class="col" style="margin-top:20px;margin-left:0px">
+          <div class="card card-default" style="margin-top:20px;box-shadow:0 1px 6px rgba(70,73,76,.35)">
+            <div class="card-header" style="margin-bottom:0px">
+              <div class="card-title"style="margin-bottom:0px">
+                <div class="row">
+                    <div class="col-md-11">
+                      <h1 class="pull-left img-responsive" style="font:900;margin-top:5px">
+                        <i class="fa fa-user-circle fa-1x"></i>
+                      </h1>
+                      <h1 class="pull-left" style="margin-left:10px"><strong class="h3"><a style="color:black" routerLink="/profile/{{choice._id}}">{{choice.profile.fullName}}</a></strong></h1>
+                      <div>
+                        <star-rating-comp [starType]="'svg'" [rating]="choice.profile.rating.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
+                        style="margin-left:10px;margin-top:17px" class="pull-left" ></star-rating-comp>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="pull-right btn btn-danger " (click)="removeExpert(choice)" style="margin-top:10px"><i class="fa fa-close"></i></button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="chosen.length" class="row">
+        <div class="col-md-12">
+          <button (click)="open(officeHourModel)" class="btn btn-block btn-success" style="margin-top:20px;">Request Office hours</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #officeHourModel let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Request Office Hours</h4>
+      <button type="button" class="btn btn-default" style="color:red" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <label style="font-weight:900">Title</label>
+      <input class="form-control" placeholder= "Title" [(ngModel)]="title">
+      <label style="font-weight:900;margin-top:10px">Description</label>
+      <textarea rows="7" class="form-control" style="margin-bottom:10px"  type="text" name="About" placeholder="Description" [(ngModel)]="description"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="isDisabled()" type="button" class="btn btn-success" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="requestOfficeHours();c('Close click')">Submit</button>
+      <button type="button"  class="btn btn-danger" style="box-shadow:0 1px 6px rgba(57,73,76,.35)" (click)="cancel();c('Close click')">Cancel</button>
+    </div>
+</ng-template>

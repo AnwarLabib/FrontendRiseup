@@ -1,0 +1,6 @@
+Hello, I am free at:
+<ul>
+    <li *ngFor="let slot of request.suggestedSlots.slots">
+        {{ slot | date : 'MMM d, y h:mm:ss a' : '+0000' }}
+    </li>
+</ul>

@@ -1,0 +1,40 @@
+Please respond by either:
+<ul>
+  <li>Suggesting at most 3 slots</li>
+  <li>Rejecting the request</li>
+</ul>
+<form (ngSubmit)="onSubmit()" role="form" [formGroup]="ngForm">
+  <div class="row" style="margin-top:10px">
+    <div class="col-md-6">
+      <input class="form-control" formControlName="date1" type="datetime-local" name="date1">
+    </div>
+    <div class="col-md-2">
+      <button (click)="addDate2()" class="btn btn-success btn-circle" type="button"><i class="fa fa-plus"></i></button>
+    </div>
+  </div>
+
+  <div *ngIf="isDate2" class="row" style="margin-top:10px">
+    <div class="col-md-6">
+      <input class="form-control" formControlName="date2" type="datetime-local" name="date2">
+    </div>
+    <div class="col-md-2">
+      <button (click)="addDate3()" class="btn btn-success btn-circle" type="button"><i class="fa fa-plus"></i></button>
+      <button (click)="removeDate2()" class="btn btn-danger btn-circle" type="button"><i class="fa fa-minus"></i></button>
+    </div>    
+  </div>
+  
+  <div *ngIf="isDate3" class="row" style="margin-top:10px">
+    <div class="col-md-6">
+      <input class="form-control" formControlName="date3" type="datetime-local" name="date1">
+    </div>
+    <div class="col-md-2">
+        <button (click)="removeDate3()" class="btn btn-danger btn-circle" type="button"><i class="fa fa-minus"></i></button>
+    </div>
+  </div>  
+  <p *ngIf='isWrongDate' style="color:red;margin-top:10px">You can't choose an old date</p>
+  <p *ngIf='!isPickedOne' style="color:red;margin-top:10px">You must choose a date</p>
+  <div style="margin-top:10px">
+    <button type="submit" class="btn btn-success">Accept</button>
+    <button (click)="reject()" type="button" class="btn btn-danger">Reject</button>
+  </div>
+</form>
