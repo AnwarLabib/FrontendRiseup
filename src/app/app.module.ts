@@ -38,7 +38,6 @@ import { UserChoiceViewComponent } from './notification-panel/office-hours-reque
 import { RequestConfirmationComponent } from './notification-panel/office-hours-request/request-confirmation/request-confirmation.component';
 import { OfficeHoursRequestComponent } from './notification-panel/office-hours-request/office-hours-request.component';
 import { GiveFeedbackComponent } from './notification-panel/office-hours-request/give-feedback/give-feedback.component';
-import { StarRatingModule } from 'levon-angular-star-rating';
 import { ExpertRejectComponent } from './notification-panel/office-hours-request/expert-reject/expert-reject.component';
 import { ViewRequestsComponent } from './admin-panel/view-requests/view-requests.component';
 import { RegisterLoginAuthGaurd } from './registerlogin-auth-guard.service';
@@ -85,8 +84,7 @@ import { RegisterLoginAuthGaurd } from './registerlogin-auth-guard.service';
     FormsModule,
     StorageServiceModule,
     // NgSelectModule
-    SelectModule,
-    StarRatingModule
+    SelectModule
   ],
   providers: [DatabaseService,AdminAuthGaurd,UserAuthGaurd,RegisterLoginAuthGaurd],
   bootstrap: [AppComponent]

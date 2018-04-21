@@ -24,8 +24,6 @@
                         <strong class="h1">{{displayedProfile.profile.fullName}}</strong>
                         <button *ngIf="!notMe" (click)="open(content8)" style="float:right;color:red;background-color:#fff;box-shadow:0 1px 6px rgba(57,73,76,.35)" class="btn"><i class="fa fa-edit"></i> Edit</button>
                       </h3>
-                      <star-rating-comp [starType]="'svg'" [rating]="displayedProfile.profile.rating.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
-                        style="margin-left:-10px" class="pull-left" ></star-rating-comp> ({{displayedProfile.profile.rating.count}})
                     </div>
                   </div>
                 </div>
@@ -137,8 +135,6 @@
                     <div class="" style="margin-top:20px;" *ngFor="let review of revs;let i = index">
                       <div>
                         <a class="pull-left" style="color:red" routerLink="/profile/{{review.reviewer._id}}">{{review.reviewer.name}}</a>
-                        <star-rating-comp [starType]="'svg'" [rating]="review.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
-                                          style="margin-left:10px" class="pull-left" ></star-rating-comp>
                       </div>
                       <br>
                       <div class="row" style="margin-top:20px;">

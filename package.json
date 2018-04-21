@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -36,7 +36,6 @@
     "hawk": "^7.0.7",
     "jQuery": "^1.7.4",
     "jquery": "^3.3.1",
-    "levon-angular-star-rating": "^3.0.0",
     "ng-bootstrap": "^1.6.3",
     "ng-select": "^1.0.0-rc.5",
     "ng2-select": "^2.0.0",

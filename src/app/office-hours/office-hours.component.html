@@ -44,8 +44,6 @@
 
               <h1 class="pull-left" style="margin-left:10px"><strong class="h3"><a style="color:black" routerLink="/profile/{{experts._id}}">{{experts.profile.fullName}}</a></strong></h1>
               <div>
-                <star-rating-comp [starType]="'svg'" [rating]="experts.profile.rating.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
-                style="margin-left:10px;margin-top:17px" class="pull-left" ></star-rating-comp>
               </div>
             </div>
             <div class="col-md-1">
@@ -72,8 +70,6 @@
                       </h1>
                       <h1 class="pull-left" style="margin-left:10px"><strong class="h3"><a style="color:black" routerLink="/profile/{{choice._id}}">{{choice.profile.fullName}}</a></strong></h1>
                       <div>
-                        <star-rating-comp [starType]="'svg'" [rating]="choice.profile.rating.rating" [showHalfStars]="true" [hoverEnabled]="false" [readOnly]="true" [size]="'medium'"
-                        style="margin-left:10px;margin-top:17px" class="pull-left" ></star-rating-comp>
                       </div>
                     </div>
                     <div class="col-md-1">
